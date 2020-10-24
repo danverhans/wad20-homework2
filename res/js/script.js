@@ -62,7 +62,7 @@ function displayPersons(){
         $('.personArea').append("<div id=\"person"+i +"\"></div>" );
         $('#person'+i).append("<img src=" + person.avatar + " id=\"avatar\"></img>" );
         $('#person'+i).append("<h1>" + person.firstname + " " + person.lastname +"</h1>" );
-        $('#person'+i).append("<button id=\"follow\">Follow</button>");
+        $('#person'+i).append("<button id=\"follow" + i +"\" value=\"Follow\" onclick=\"change("+i+")\">Follow</button>");
         i++;
     }
 }
@@ -71,4 +71,19 @@ function displayUserInfo(response) {
     $('#name').text(response.firstname + " " + response.lastname);
     $('#email').text(response.email);
     $('.avatar').attr('src',response.avatar);
+}
+
+function change(i)
+{
+    var elem = document.getElementById("follow"+i);
+    if (elem.value=="Follow") {
+        elem.value = "Followed";
+        elem.innerHTML="Followed";
+        elem.style.backgroundColor="#8a8a8a"
+    }
+    else {
+        elem.value = "Follow";
+        elem.innerHTML="Follow";
+        elem.style.backgroundColor="#01579b"}
+    
 }
