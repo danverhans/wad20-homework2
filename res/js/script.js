@@ -1,5 +1,5 @@
 let persons = [];
-
+let posts = [];
 $(function(){
   
     $('.avatar').click(function () {
@@ -23,6 +23,22 @@ $(function(){
     })
     .catch(function(){
         alert('Error loading browse info')
+    });
+
+    loadPostInfo()
+        .then(function (response){
+            for (let post of response){
+                if (post.media!=null){
+                    posts.push(new Post(post.id,new Person(post.author.firstname, post.author.lastname, post.author.avatar),post.createTime,post.text,new Media(post.media.type, post.media.url),post.likes));
+                }else{
+                    posts.push(new Post(post.id,new Person(post.author.firstname, post.author.lastname, post.author.avatar),post.createTime,post.text,null,post.likes));}
+                
+                }
+
+        displayPosts()
+    })
+    .catch(function(){
+        alert('Error loading post info')
     });
 
 });
@@ -55,6 +71,20 @@ function loadBrowseInfo() {
     );
 }
 
+function loadPostInfo() {
+    return $.get(
+        {
+            url: 'https://private-anon-eb25be098a-wad20postit.apiary-mock.com/posts',
+            success: function (response) {
+                return response;
+            },
+            error: function () {
+                alert('error')
+            }
+        }
+    );
+}
+
 function displayPersons(){
 
     var i =1;
@@ -64,6 +94,30 @@ function displayPersons(){
         $('#person'+i).append("<h1>" + person.firstname + " " + person.lastname +"</h1>" );
         $('#person'+i).append("<button id=\"follow\">Follow</button>");
         i++;
+    }
+}
+
+function displayPosts(){
+
+    for(let post of posts){
+        
+        $('.posts').append("<div id=\"post"+post.id+"\"></div>" );
+        $('#post'+post.id).append("<div id=\"postheader"+post.id+"\"></div>");
+        $('#postheader'+post.id).append("<img src=" + post.person.avatar + " id=\"postavatar\"></img>" );
+        $('#postheader'+post.id).append("<h3 id=\"author\">" + post.person.firstname + " " + post.person.lastname +"</h3>" );
+        $('#postheader'+post.id).append("<h5 id=\"time\">" + post.time +"</h5>" );
+        if (post.media!=null){
+            if (post.media.type=="image") {
+                $('#post'+post.id).append("<img src=" + post.media.url + " id=\"postmedia\"></img>" ); 
+            }
+            else{
+                $('#post'+post.id).append("<video controls><source src=" + post.media.url + " type=\"video/mp4\" id=\"postmedia\"></video>" );
+            }
+        }
+        if (post.text!=null){
+            $('#post'+post.id).append("<h3>" + post.text +"</h3>" );}
+        $('#post'+post.id).append("<button type=\"button\" name=\"like\" class=\"like-button\">"+post.likes+"</button>");
+        console.log("lol")
     }
 }
 
