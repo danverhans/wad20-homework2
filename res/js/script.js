@@ -70,4 +70,5 @@ function displayPersons(){
 function displayUserInfo(response) {
     $('#name').text(response.firstname + " " + response.lastname);
     $('#email').text(response.email);
+    $('.avatar').attr('src',response.avatar);
 }
