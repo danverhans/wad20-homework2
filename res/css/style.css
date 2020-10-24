@@ -227,3 +227,28 @@ nav div.avatar-container {
     float: left;
 
 }
+
+.personArea{
+    align-content: center;
+}
+.personArea >div{
+    margin: 5%;
+    padding: 5%;
+    text-align: center;
+    border-style: solid;
+    border-color: #cdcdcd;
+    border-width: 2px;
+    border-radius: 5%;
+}
+
+#avatar {
+    object-fit: cover;
+    object-position: center top;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+  }
+
+  h1{
+      text-align: center;
+  }
