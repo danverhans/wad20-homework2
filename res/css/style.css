@@ -124,9 +124,9 @@ nav div.avatar-container {
 .posts >div {
     width: 90%;
     margin: 15px;
-    box-shadow: 0 0 15px rgba(38, 50, 56, 0.33);
     padding: 3%;
-
+    box-shadow: 0 0 15px rgba(38, 50, 56, 0.33);
+    border-radius: 5%;
 }
 #postmedia{
     width: 100%;
@@ -136,8 +136,6 @@ video{
 }
 #postheader{
     display: inline-block;
-    
-
 }
 
 #author{
@@ -145,9 +143,9 @@ video{
     padding-left: 5%;
 }
 #time{
-    display: inline-block;
-    padding-left: 35%;
-    text-align: right;
+    
+    float: right;
+    align-self: right;
 }
 
 
@@ -165,7 +163,6 @@ video{
     border: none;
 }
 
-
 #menu{
     display: none;
     width: 220px;
@@ -174,7 +171,6 @@ video{
     background-color: #ffffff;
     right: 0;
     text-align: left;
-    
 }
 #menu> form{
     display: block;
@@ -189,16 +185,16 @@ video{
     padding: 5px;
     border-top: 1px solid grey;
     float: left;
-
 }
 
+.personArea{
+    align-content: center;
+}
 .personArea >div{
     margin: 5%;
     padding: 5%;
     text-align: center;
-    border-style: solid;
-    border-color: #cdcdcd;
-    border-width: 2px;
+    box-shadow: 0 0 15px rgba(38, 50, 56, 0.33);
     border-radius: 5%;
 }
 #postavatar{
@@ -213,8 +209,8 @@ video{
 #avatar {
     object-fit: cover;
     object-position: center top;
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
   }
 

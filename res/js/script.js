@@ -12,34 +12,35 @@ $(function(){
     .catch(function () {
         alert('Error loading user info')
     });
-
-    loadBrowseInfo()
-        .then(function (response){
-            for (let person of response){
-                persons.push(new Person(person.firstname, person.lastname, person.avatar));
-            }
-
-        displayPersons()
-    })
-    .catch(function(){
-        alert('Error loading browse info')
-    });
-
-    loadPostInfo()
-        .then(function (response){
-            for (let post of response){
-                if (post.media!=null){
-                    posts.push(new Post(post.id,new Person(post.author.firstname, post.author.lastname, post.author.avatar),post.createTime,post.text,new Media(post.media.type, post.media.url),post.likes));
-                }else{
-                    posts.push(new Post(post.id,new Person(post.author.firstname, post.author.lastname, post.author.avatar),post.createTime,post.text,null,post.likes));}
-                
+    if (document.title=="Browse"){
+        loadBrowseInfo()
+            .then(function (response){
+                for (let person of response){
+                    persons.push(new Person(person.firstname, person.lastname, person.avatar));
                 }
 
-        displayPosts()
-    })
-    .catch(function(){
-        alert('Error loading post info')
-    });
+            displayPersons()
+        })
+        .catch(function(){
+            alert('Error loading browse info')
+        });}
+    
+    if (document.title=="Just Post It"){
+        loadPostInfo()
+            .then(function (response){
+                for (let post of response){
+                    if (post.media!=null){
+                        posts.push(new Post(post.id,new Person(post.author.firstname, post.author.lastname, post.author.avatar),post.createTime,post.text,new Media(post.media.type, post.media.url),post.likes));
+                    }else{
+                        posts.push(new Post(post.id,new Person(post.author.firstname, post.author.lastname, post.author.avatar),post.createTime,post.text,null,post.likes));}
+                
+                    }   
+
+            displayPosts()
+        })
+        .catch(function(){
+            alert('Error loading post info')
+        });}
 
 });
 
@@ -92,7 +93,7 @@ function displayPersons(){
         $('.personArea').append("<div id=\"person"+i +"\"></div>" );
         $('#person'+i).append("<img src=" + person.avatar + " id=\"avatar\"></img>" );
         $('#person'+i).append("<h1>" + person.firstname + " " + person.lastname +"</h1>" );
-        $('#person'+i).append("<button id=\"follow" + i +"\" value=\"Follow\" onclick=\"change("+i+")\">Follow</button>");
+        $('#person'+i).append("<button id=\"follow" + i +"\" value=\"Follow\" onclick=\"changeFollow("+i+")\">Follow</button>");
         i++;
     }
 }
@@ -116,7 +117,7 @@ function displayPosts(){
         }
         if (post.text!=null){
             $('#post'+post.id).append("<h3>" + post.text +"</h3>" );}
-        $('#post'+post.id).append("<button type=\"button\" name=\"like\" class=\"like-button\">"+post.likes+"</button>");
+        $('#post'+post.id).append("<button id=\"button"+post.id+"\" value=\"like\" class=\"like-button\" onclick=\"changeLike("+post.id+")\">"+post.likes+"</button>");
         console.log("lol")
     }
 }
@@ -127,7 +128,7 @@ function displayUserInfo(response) {
     $('.avatar').attr('src',response.avatar);
 }
 
-function change(i)
+function changeFollow(i)
 {
     var elem = document.getElementById("follow"+i);
     if (elem.value=="Follow") {
@@ -138,6 +139,18 @@ function change(i)
     else {
         elem.value = "Follow";
         elem.innerHTML="Follow";
+        elem.style.backgroundColor="#01579b"}
+    
+}
+function changeLike(i)
+{
+    var elem = document.getElementById("button"+i);
+    if (elem.value=="like") {
+        elem.value = "liked";
+        elem.style.backgroundColor="#8a8a8a"
+    }
+    else {
+        elem.value = "like";
         elem.style.backgroundColor="#01579b"}
     
 }
