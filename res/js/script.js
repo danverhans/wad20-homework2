@@ -88,7 +88,7 @@ function loadPostInfo() {
 
 function displayPersons(){
 
-    var i =1;
+    let i = 1;
     for(let person of persons){
         $('.personArea').append("<div id=\"person"+i +"\"></div>" );
         $('#person'+i).append("<img src=" + person.avatar + " id=\"avatar\"></img>" );
@@ -118,7 +118,6 @@ function displayPosts(){
         if (post.text!=null){
             $('#post'+post.id).append("<h3>" + post.text +"</h3>" );}
         $('#post'+post.id).append("<button id=\"button"+post.id+"\" value=\"like\" class=\"like-button\" onclick=\"changeLike("+post.id+")\">"+post.likes+"</button>");
-        console.log("lol")
     }
 }
 
@@ -151,6 +150,6 @@ function changeLike(i)
     }
     else {
         elem.value = "like";
-        elem.style.backgroundColor="#01579b"}
-    
+        elem.style.backgroundColor="#01579b"
+    }
 }
